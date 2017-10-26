@@ -12,8 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 public class EditerCollaborateurController extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
+		doTask(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doTask(req, resp);
+	}
+	
+	private void doTask(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String matricule = req.getParameter("matricule");
 		String titre = req.getParameter("titre");
 		String nom = req.getParameter("nom");
@@ -23,6 +31,7 @@ public class EditerCollaborateurController extends HttpServlet {
 		
 		if(!error.equals("")){
 			resp.sendError(400, "Les paramètres suivants sont incorrects : \n" + error);
+			return;
 		}	
 		
 		resp.setStatus(201);
