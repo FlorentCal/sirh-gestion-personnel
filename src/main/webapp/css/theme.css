@@ -1,0 +1,39 @@
+.left{
+   text-align: right;
+ }
+
+.right{
+  margin-left: 100%
+}
+
+.left-p{
+  display: inline-block;
+  text-align: right;
+  font-size:16px;
+  font-weight:600;
+  color:#a9a9a9;
+ }
+
+label{
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+
+img{
+  border-radius:100%;
+  margin-top:15px;
+  margin-left:5px;
+}
+
+.case {
+	box-shadow: 5px 5px 5px 5px #ccc;
+}
+
+.row {
+  padding-top: 50px;
+}
+
+.top{
+	margin-top: 2%;
+}

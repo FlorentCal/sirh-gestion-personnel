@@ -1,0 +1,21 @@
+#contact_form .has-error .control-label,
+#contact_form .has-error .help-block,
+#contact_form .has-error .form-control-feedback {
+    color: #ff3300;
+}
+
+#contact_form .has-success .control-label,
+#contact_form .has-success .help-block,
+#contact_form .has-success .form-control-feedback {
+    color: #33cc33;
+}
+
+.lab {
+  width: 30%;
+  text-align: right;
+  padding-right: 2%;
+}
+
+.lab-value{
+	width : 30%;
+}
