@@ -9,24 +9,42 @@ import dev.sgp.util.Constantes;
 public class Collaborateur {
 
 	
+	/** matricule : int */
 	private int matricule;
+	/** nom : String */
 	private String nom;
+	/** prenom : String */
 	private String prenom;
+	/** dateDeNaissance : LocalDate */
 	private LocalDate dateDeNaissance;
+	/** adresse : String */
 	private String adresse;
+	/** numeroDeSecuriteSocial : String */
 	private String numeroDeSecuriteSocial;
+	/** emailPro : String */
 	private String emailPro;
+	/** photo : String */
 	private String photo;
+	/** dateHeureCreation : ZonedDateTime */
 	private ZonedDateTime dateHeureCreation;
+	/** telephone : String */
 	private String telephone;
+	/** collaboActif : boolean */
 	private boolean collaboActif;
 	
+	/** intitulePoste : String */
 	private String intitulePoste;
+	/** fonction : String */
 	private String fonction;
+	/** departement : Departement */
 	private Departement departement;	
+	/** banque : String */
 	private String banque;
+	/** bic : String */
 	private String bic;
+	/** iban : String */
 	private String iban;
+	/** matriculeStatic : int */
 	private static int matriculeStatic = 0;
 	
 	public Collaborateur() {

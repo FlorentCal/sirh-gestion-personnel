@@ -3,8 +3,11 @@ package dev.sgp.entite;
 
 public class Departement {
 	
+	/** id : Integer */
 	private Integer id;
+	/** nom : String */
 	private String nom;
+	/** indexId : Integer */
 	static private Integer indexId = 0;
 	
 	public Departement() {

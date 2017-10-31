@@ -18,7 +18,6 @@ import dev.sgp.util.Constantes;
 
 public class ListerCollaborateursController extends HttpServlet {
 
-	// recuperation du service
 	private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
 	
 	@Override
@@ -32,23 +31,46 @@ public class ListerCollaborateursController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws
 	ServletException, IOException {	
-		Optional<Departement> oDep= Constantes.DEPART_SERVICE.listerDepartments().stream().filter(d -> d.getNom().equals(req.getParameter("departement"))).findFirst();
-		List<Collaborateur> listCollab = Constantes.COLLAB_SERVICE.listerCollaborateurs();
-		String chercher = req.getParameter("cherchernom");
+		doTask(req, resp);
+	}
+
+	private void doTask(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Optional<Departement> departement= Constantes.DEPART_SERVICE.listerDepartments()
+				.stream()
+				.filter(dep -> dep.getNom().equals(req.getParameter("departement")))
+				.findFirst();
+		List<Collaborateur> collaborateurs = Constantes.COLLAB_SERVICE.listerCollaborateurs();
+		
+		String chercher = req.getParameter("chercherNom");
+		
 		if (chercher!=null) {
-			listCollab = listCollab.stream().filter(c->c.getNom().toLowerCase().contains(chercher.toLowerCase())||c.getPrenom().toLowerCase().contains(chercher.toLowerCase())).collect(Collectors.toList());	
-		req.setAttribute("cherchernom", chercher);
+			collaborateurs = collaborateurs
+					.stream()
+					.filter(collab -> collab.getNom().toLowerCase().contains(chercher.toLowerCase())
+									||collab.getPrenom().toLowerCase().contains(chercher.toLowerCase()))
+					.collect(Collectors.toList());	
+		
+			req.setAttribute("chercherNom", chercher);
 		}
-		if(oDep.isPresent()){
-			listCollab = listCollab.stream().filter(c->c.getDepartement().equals(oDep.get())).collect(Collectors.toList());	
+		
+		if(departement.isPresent()){
+			collaborateurs = collaborateurs
+					.stream()
+					.filter(collab -> collab.getDepartement().equals(departement.get()))
+					.collect(Collectors.toList());	
 		}
+		
 		if(req.getParameter("afficherDesactiver")==null){
-		listCollab = listCollab.stream().filter(c -> c.isCollaboActif()).collect(Collectors.toList());
+			collaborateurs = collaborateurs
+					.stream()
+					.filter(Collaborateur::isCollaboActif)
+					.collect(Collectors.toList());
 		}
-		req.setAttribute("collaborateurs", listCollab);
+		
+		req.setAttribute("listeCollaborateurs", collaborateurs);
 		req.setAttribute("afficherDesactiver", req.getParameter("afficherDesactiver"));
 		req.setAttribute("departement", req.getParameter("departement"));
-		req.getRequestDispatcher("/WEB-INF/views/collaborateurs/Lister_Collaborateurs.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/collab/Lister_Collaborateurs.jsp").forward(req, resp);
 	}
 
 }

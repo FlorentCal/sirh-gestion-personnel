@@ -17,18 +17,24 @@ public class EditerCollaborateurController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Optional<Collaborateur> collabo = Constantes.COLLAB_SERVICE.listerCollaborateurs().stream()
-				.filter(col -> col.getMatricule() == Integer.parseInt(req.getParameter("matricule"))).findFirst();
+		Optional<Collaborateur> collabo = Constantes.COLLAB_SERVICE.listerCollaborateurs()
+				.stream()
+				.filter(col -> col.getMatricule() == Integer.parseInt(req.getParameter("matricule")))
+				.findFirst();
+		
 		if (collabo.isPresent()){
 			req.setAttribute("collaborateur", collabo.get());
 		}
+		
 		req.getRequestDispatcher("/WEB-INF/views/collab/Editer_Collaborateur.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		Optional<Collaborateur> c = Constantes.COLLAB_SERVICE.listerCollaborateurs().stream()
-				.filter(col -> col.getMatricule() == Integer.parseInt(req.getParameter("matricule"))).findFirst();
+				.filter(collab -> collab.getMatricule() == Integer.parseInt(req.getParameter("matricule"))).findFirst();
+		
 		if (c.isPresent()){
 		
 			Collaborateur collaborateur = c.get();
@@ -39,17 +45,22 @@ public class EditerCollaborateurController extends HttpServlet {
 			collaborateur.setBic(req.getParameter("bic"));
 			collaborateur.setFonction(req.getParameter("fonction"));
 			
-			if(req.getParameter("desactiver")==null){
+			if(req.getParameter("desactiver") == null){
 				collaborateur.setCollaboActif(true);
 			}else{
 				collaborateur.setCollaboActif(false);
 			}
 			
-			Optional<Departement> oDep= Constantes.DEPART_SERVICE.listerDepartments().stream().filter(d -> d.getNom().equals(req.getParameter("departement"))).findFirst();
-			if(oDep.isPresent()){
-				collaborateur.setDepartement(oDep.get());
+			Optional<Departement> departement= Constantes.DEPART_SERVICE.listerDepartments()
+					.stream().filter(d -> d.getNom().equals(req.getParameter("departement")))
+					.findFirst();
+			if(departement.isPresent()){
+				collaborateur.setDepartement(departement.get());
 			}
-			req.setAttribute("collaborateurs", Constantes.COLLAB_SERVICE.listerCollaborateurs().stream().filter(collab -> collab.isCollaboActif()).collect(Collectors.toList()));
+			req.setAttribute("listeCollaborateurs", Constantes.COLLAB_SERVICE.listerCollaborateurs()
+					.stream()
+					.filter(collab -> collab.isCollaboActif())
+					.collect(Collectors.toList()));
 			req.getRequestDispatcher("/WEB-INF/views/collab/Lister_Collaborateurs.jsp").forward(req, resp);
 			
 		}

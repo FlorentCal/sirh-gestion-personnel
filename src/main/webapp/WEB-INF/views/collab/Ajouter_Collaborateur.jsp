@@ -26,15 +26,12 @@
 
 
 <script type="text/javascript">
-	function enregistrer()
-	
-	{
+	function enregistrer(){
 	     localStorage['nom'] = document.getElementById('nom').value;
 	     localStorage['prenom'] = document.getElementById('prenom').value;
 	     localStorage['dateDeNaissance'] = document.getElementById('dateDeNaissance').value;
 	     localStorage['adresse'] = document.getElementById('adresse').value;
-	     localStorage['secu']= document.getElementById('secu').value;
-	
+	     localStorage['secu']= document.getElementById('secu').value;	
 	}
 	
 </script>

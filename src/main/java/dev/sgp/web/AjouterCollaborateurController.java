@@ -62,8 +62,10 @@ public class AjouterCollaborateurController extends HttpServlet {
 				adresse,
 				numeroDeSecuriteSocial));
 		
-		req.setAttribute("listeCollaborateurs", Constantes.COLLAB_SERVICE.listerCollaborateurs().stream()
-				.filter(collaborateur -> collaborateur.isCollaboActif()).collect(Collectors.toList()));
+		req.setAttribute("listeCollaborateurs", Constantes.COLLAB_SERVICE.listerCollaborateurs()
+				.stream()
+				.filter(Collaborateur::isCollaboActif)
+				.collect(Collectors.toList()));
 		
 		req.getRequestDispatcher("/WEB-INF/views/collab/Lister_Collaborateurs.jsp").forward(req, resp);
 		
