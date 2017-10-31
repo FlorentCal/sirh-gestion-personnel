@@ -2,16 +2,17 @@ package dev.sgp.web;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dev.sgp.entite.Collaborateur;
 import dev.sgp.service.CollaborateurService;
 import dev.sgp.util.Constantes;
+import dev.sgp.util.ErrorBuilder;
 
 public class AjouterCollaborateurController extends HttpServlet {
 
@@ -30,7 +31,6 @@ public class AjouterCollaborateurController extends HttpServlet {
 
 	private void doTask(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-		String matricule = req.getParameter("matricule");
 		String nom = req.getParameter("nom");
 		String prenom = req.getParameter("prenom");
 		String dateDeNaissance = req.getParameter("dateDeNaissance");
@@ -51,21 +51,23 @@ public class AjouterCollaborateurController extends HttpServlet {
 
 		resp.setStatus(201);
 		
-		String[] datesNaissance = dateDeNaissance.split("-");
-		LocalDate newDateDeNaissance = LocalDate.of(Integer.parseInt(datesNaissance[2]), Integer.parseInt(datesNaissance[1]),Integer.parseInt(datesNaissance[0]));
 		
+		String[] datesNaissance = dateDeNaissance.split("/");
+		LocalDate newDateDeNaissance = LocalDate.of(Integer.parseInt(datesNaissance[2]), Integer.parseInt(datesNaissance[1]),Integer.parseInt(datesNaissance[0]));
+				
 		collabService.sauvegarderCollaborateur(new Collaborateur(
-				matricule, 
 				nom, 
 				prenom, 
 				newDateDeNaissance, 
-				adresse, 
-				numeroDeSecuriteSocial, 
-				prenom + "." + nom + "@dta-ingenieri.fr", 
-				"https://randomuser.me/api/portraits/women/19.jpg", 
-				ZonedDateTime.now(),
-				true
-				));
+				adresse,
+				numeroDeSecuriteSocial));
+		
+		req.setAttribute("listeCollaborateurs", Constantes.COLLAB_SERVICE.listerCollaborateurs().stream()
+				.filter(collaborateur -> collaborateur.isCollaboActif()).collect(Collectors.toList()));
+		
+		req.getRequestDispatcher("/WEB-INF/views/collab/Lister_Collaborateurs.jsp").forward(req, resp);
+		
+				
 	}
 
 }

@@ -1,4 +1,4 @@
-package dev.sgp.web;
+package dev.sgp.util;
 
 public class PageBuilder {
 

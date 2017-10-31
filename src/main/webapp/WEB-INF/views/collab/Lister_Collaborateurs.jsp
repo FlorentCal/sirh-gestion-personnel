@@ -1,6 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
-<%@page import="dev.sgp.web.Collaborateur"%>
+<%@page import="dev.sgp.entite.Collaborateur"%>
+<%@page import="dev.sgp.entite.Departement"%>
+<%@page import="dev.sgp.util.Constantes"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,10 +55,10 @@
 			<span class="col-3 left">Filtrer par département : </span>
 			<div class="dropdown">
 				<select class="custom-select">
-					<option selected>Tous</option>
-					<option value="1">Comptabilité</option>
-					<option value="2">Informatique</option>
-					<option value="3">Je sais plus quoi</option>
+					<option>Tous</option>
+					<%for (Departement departement : Constantes.DEPART_SERVICE.listerDepartments()){ %>
+						<option <%=departement.getNom()%>></option>
+					<%} %>
 				</select>
 			</div>
 		</form>
@@ -68,20 +70,23 @@
 			<div class="col-4 case">
 				<form class="top form-inline">
 					<h4 class="col-6 bold"><%=collab.getNom() + " " + collab.getPrenom() %></h4>
-					<button class="col-3 offset-3 btn btn-outline-success" type="submit">Editer</button>
+					<div class="col-3 offset-3">
+						<a href="<%=request.getContextPath()%>/collaborateurs/editer?matricule=<%=collab.getMatricule()%>"
+							class="btn btn-outline-success" role="button">Editer</a>
+					</div>
 				</form>
-				<img class="col-6 offset-3" src=<%= collab.getPhoto() %>	alt="Photo">
+				<img class="col-6 offset-3" src=<%= collab.getPhoto() %> alt="Photo">
+				<div class="form-inline">
+					<p class="col-5 left-p">Fonction :</p><p class="col-7"><%=collab.getFonction() %> </p>
+				</div>
+				<div class="form-inline">
+					<p class="col-5 left-p">Departement :</p><p class="col-7"> <%=collab.getDepartement().getNom() %></p>
+				</div>
 				<div class="form-inline">
 					<p class="col-5 left-p">Email :</p><p class="col-7"><%=collab.getEmailPro() %> </p>
 				</div>
 				<div class="form-inline">
-					<p class="col-5 left-p">Adresse :</p><p class="col-7"><%=collab.getAdresse() %> </p>
-				</div>
-				<div class="form-inline">
-					<p class="col-5 left-p">Date de naissance :</p><p class="col-7"> <%=collab.getDateDeNaissance() %></p>
-				</div>
-				<div class="form-inline">
-					<p class="col-5 left-p">Numero de SS :</p><p class="col-7"> <%=collab.getNumeroDeSecuriteSocial() %></p>
+					<p class="col-5 left-p"> Telephone :</p><p class="col-7"> <%=collab.getTelephone() %></p>
 				</div>
 			</div>
 			<%

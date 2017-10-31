@@ -3,7 +3,7 @@ package dev.sgp.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.sgp.web.Collaborateur;
+import dev.sgp.entite.Collaborateur;
 
 public class CollaborateurService {
 	

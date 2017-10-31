@@ -1,29 +1,12 @@
 img{
-  border-radius:50%;
+  border-radius:100%;
 }
 
-.border-label{
-  border: 1px solid #ddd;
-  padding: 5px;
-  height: 3%;
+.bordered{
+	border: 2px solid #ccc;
+	padding:1%;
 }
 
-.right{
-  margin-left: 91%;
-}
-
-.bottom{
-  margin-bottom: 2%;
-}
-
-.top{
-  margin-top: 3%;
-}
-
-.control-label{
-  margin-left: 0.5%;
-}
-
-.input-group-addon{
-  height: 3%;
+.bottom{ 
+	margin-bottom: 1%;
 }

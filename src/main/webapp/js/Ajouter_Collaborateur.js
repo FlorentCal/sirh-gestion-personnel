@@ -35,8 +35,8 @@ $(document).ready(function() {
 				dateDeNaissance: {
 					validators: {
 						date: {
-	                        format: 'DD-MM-YYYY',
-	                        message: 'Format de date invalide (DD-MM-YYYY)'
+	                        format: 'DD/MM/YYYY',
+	                        message: 'Format de date invalide (DD/MM/YYYY)'
 	                    },
 						notEmpty: {
 							message: 'La date de naissance est obligatoire'
