@@ -20,8 +20,8 @@ public class StartupListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		Stream.of(
 				new Collaborateur("Callaou", "Florent", LocalDate.of(1995, 11, 2), "1 rue du moulin", "523456789123456"),
-				new Collaborateur("Callaou1", "Florent1", LocalDate.of(1993, 11, 2), "1 rue du moulin", "123456789123456")
-						).forEach(collabService::sauvegarderCollaborateur);;
+				new Collaborateur("Noel", "Jean", LocalDate.of(1993, 12, 5), "6 rue de la garde", "123456789123456")
+						).forEach(collabService::sauvegarderCollaborateur);
 		
 	}
 
